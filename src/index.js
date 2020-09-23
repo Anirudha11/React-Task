@@ -6,17 +6,11 @@ import * as serviceWorker from './serviceWorker';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
-import loginReducer from './store/reducers/login';
+import reducer from './store/reducers/login';
 import dashboardReducer from './store/reducers/dashboard';
 
-// const rootReducer = combineReducers({
-//   log: loginReducer,
-// })
 
-// const store = createStore(rootReducer);
-// console.log(store.getState());
-
-const store = createStore(loginReducer);
+const store = createStore(reducer);
 
 
 ReactDOM.render(

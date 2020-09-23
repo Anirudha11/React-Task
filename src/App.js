@@ -1,96 +1,110 @@
 import React, { Component, Suspense } from 'react';
-import { BrowserRouter, Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as actionTypes from './store/actions/actions';
 import Login from './containers/Login/Login';
-// import Dashboard from './components/Dashboard/Dashboard';
 
 const Dashboard = React.lazy(()=>import('./components/Dashboard/Dashboard'));
 
 class App extends Component {
 
-  state = {
-    username:'',
-    password:'',
-    error:'',
-    isLoggedIn: false
-  };
+  // state = {
+  //   username:'',
+  //   password:'',
+  //   error:'',
+  // };
 
+  // dismissError() {
+  //   this.setState({ error: '' });
+  // }
 
-  dismissError() {
-    this.setState({ error: '' });
-  }
+  // submitHandler() {
+  //   // event.preventDefault();
+  //   console.log("bjhadbjhad");
+  //   if (!this.state.username) {
+  //     return this.setState({ error: 'Username is required' });
+  //   }
 
-  submitHandler() {
-    // event.preventDefault();
-    console.log("bjhadbjhad");
-    if (!this.state.username) {
-      return this.setState({ error: 'Username is required' });
-    }
+  //   if (!this.state.password) {
+  //     return this.setState({ error: 'Password is required' });
+  //   }
+  //   else {
+  //     this.setState({isLoggedIn:true});
+  //     return this.setState({ error: '' });
+  //   }
+  // }
 
-    if (!this.state.password) {
-      return this.setState({ error: 'Password is required' });
-    }
-    else {
-      this.setState({isLoggedIn:true});
-      return this.setState({ error: '' });
-    }
-  }
+  // userChangeHandler(event) {
+  //   this.setState({
+  //     username: event.target.value,
+  //   });
+  //   console.log(this.props.uiState,"uiState");
+  //   // this.props.username = event.target.value;
+  //   // console.log(this.props.username,"hjkh");
+  // };
 
-  userChangeHandler(event) {
-    this.setState({
-      username: event.target.value,
-    });
-    // console.log(this.state,"state");
-  };
-
-  passChangeHandler(event) {
-    this.setState({
-      password: event.target.value,
-    });
-  }
-
+  // passChangeHandler(event) {
+  //   this.setState({
+  //     password: event.target.value,
+  //   });
+  //   // this.props.password = event.target.value;
+  // }
 
   render() {
     
     const loginUI =  <Login 
     {...this.state}
-    pass={(event)=>this.passChangeHandler(event)}
-    user={(event)=>this.userChangeHandler(event)}
+    // pass={(event)=>this.passChangeHandler(event)}
+    // user={(event)=>this.userChangeHandler(event)}
+    user={this.props.userChangeHandler}
+    pass={this.props.passChangeHandler}
     submit={this.props.submitHandler}
     />
 
     const dashUI =  <Suspense fallback={<h1>Loading...!!</h1>}>
-    <Dashboard />
+    <Dashboard users={this.props.jsonData} />
   </Suspense>
 
     let showUI = loginUI;
 
-    if(this.state.isLoggedIn) {
+    if(this.props.isLoggedIn) {
+      console.log("isloggedin is true",this.props.jsonData)
      showUI = dashUI;    
     }
     else {
+      console.log("isloggedin is false",this.props.jsonData)
+      
       showUI = loginUI;
+      
     }
 
     return (
       <div>
-        <BrowserRouter>
         <React.Fragment>
          {showUI}
-        {/* <Route path="/" component={Login} /> */}
         </React.Fragment>
-        </BrowserRouter>;
      </div>
   );
 }
 }
 
+const mapStateToProps = (state) => {
+  return {
+   username:state.username,
+   password:state.password,
+   error:state.password,
+   isLoggedIn:state.isLoggedIn,
+   jsonData:state.jsonData
+  }
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    submitHandler: ()=> dispatch({type: actionTypes.LOGIN})
+    submitHandler: (event)=> dispatch({type: actionTypes.LOGIN, evt:event}),
+    userChangeHandler: (event)=> dispatch({type: actionTypes.USERNAME_HANDLER, evt:event}),
+    passChangeHandler: (event)=> dispatch({type: actionTypes.PASSWORD_HANDLER, evt:event}), 
+    dismissError: ()=> dispatch({type: actionTypes.DISMISS_ERROR}) 
   }
 }
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
