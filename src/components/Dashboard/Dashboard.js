@@ -5,10 +5,9 @@ const dashboard = (props) => {
     return (
         <React.Fragment>
         <h1>Dashboard UI!</h1>
-        
-        {console.log(props)}
+
         {props.users.user.map(user=>(
-            <React.Fragment>
+            <React.Fragment key={user.id}>
             <h4>ID:{user.id}</h4>
             <h2>Name:{user.name}</h2>
             <h3>Age:{user.age}</h3>

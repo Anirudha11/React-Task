@@ -8,48 +8,6 @@ const Dashboard = React.lazy(()=>import('./components/Dashboard/Dashboard'));
 
 class App extends Component {
 
-  // state = {
-  //   username:'',
-  //   password:'',
-  //   error:'',
-  // };
-
-  // dismissError() {
-  //   this.setState({ error: '' });
-  // }
-
-  // submitHandler() {
-  //   // event.preventDefault();
-  //   console.log("bjhadbjhad");
-  //   if (!this.state.username) {
-  //     return this.setState({ error: 'Username is required' });
-  //   }
-
-  //   if (!this.state.password) {
-  //     return this.setState({ error: 'Password is required' });
-  //   }
-  //   else {
-  //     this.setState({isLoggedIn:true});
-  //     return this.setState({ error: '' });
-  //   }
-  // }
-
-  // userChangeHandler(event) {
-  //   this.setState({
-  //     username: event.target.value,
-  //   });
-  //   console.log(this.props.uiState,"uiState");
-  //   // this.props.username = event.target.value;
-  //   // console.log(this.props.username,"hjkh");
-  // };
-
-  // passChangeHandler(event) {
-  //   this.setState({
-  //     password: event.target.value,
-  //   });
-  //   // this.props.password = event.target.value;
-  // }
-
   render() {
     
     const loginUI =  <Login 
@@ -70,12 +28,13 @@ class App extends Component {
     let showUI = loginUI;
 
     if(this.props.isLoggedIn) {
-      console.log("isloggedin is true",this.props.jsonData)
-     showUI = dashUI;    
-    }
-    else {
-      console.log("isloggedin is false",this.props.jsonData)
       
+     showUI = dashUI;    
+
+    }
+
+    else {
+        
       showUI = loginUI;
       
     }
@@ -104,11 +63,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     submitHandler: (event)=> dispatch({type: actionTypes.LOGIN, evt:event}),
     userChangeHandler: (event)=> dispatch({type: actionTypes.USERNAME_HANDLER, evt:event}),
-    userValidationHandler: (event)=> dispatch({type: actionTypes.USERNAME_VALIDATION, evt:event}),
     passChangeHandler: (event)=> dispatch({type: actionTypes.PASSWORD_HANDLER, evt:event}), 
-    passValidationHandler: (event)=> dispatch({type: actionTypes.PASSWORD_VALIDATION, evt:event}), 
-
-    // dismissError: ()=> dispatch({type: actionTypes.DISMISS_ERROR}) 
   }
 }
 
