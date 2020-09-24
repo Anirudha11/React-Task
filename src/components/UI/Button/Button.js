@@ -3,7 +3,7 @@ import classes from './Button.module.css';
 
 const button = (props) => {
     return (
-        <button className={classes.Button} onClick={props.clicked}>
+        <button className={classes.Button} onClick={props.clicked} type="submit">
                     {props.children}
                 </button>
     )

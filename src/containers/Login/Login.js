@@ -35,7 +35,7 @@ class Login extends Component {
         <label>Password</label>
         <Input type="password" value={this.props.password} changed={this.props.pass} />
 
-        <Button btnType="Success">Login</Button>
+        <Button btnType="Success" clicked={this.props.submitHandler}>Login</Button>
       </form>
       );
   }

@@ -104,8 +104,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     submitHandler: (event)=> dispatch({type: actionTypes.LOGIN, evt:event}),
     userChangeHandler: (event)=> dispatch({type: actionTypes.USERNAME_HANDLER, evt:event}),
+    userValidationHandler: (event)=> dispatch({type: actionTypes.USERNAME_VALIDATION, evt:event}),
     passChangeHandler: (event)=> dispatch({type: actionTypes.PASSWORD_HANDLER, evt:event}), 
-    dismissError: ()=> dispatch({type: actionTypes.DISMISS_ERROR}) 
+    passValidationHandler: (event)=> dispatch({type: actionTypes.PASSWORD_VALIDATION, evt:event}), 
+
+    // dismissError: ()=> dispatch({type: actionTypes.DISMISS_ERROR}) 
   }
 }
 
