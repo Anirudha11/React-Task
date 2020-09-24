@@ -59,6 +59,8 @@ class App extends Component {
     user={this.props.userChangeHandler}
     pass={this.props.passChangeHandler}
     submit={this.props.submitHandler}
+    error={this.props.error}
+    dismissError={this.props.dismissError}
     />
 
     const dashUI =  <Suspense fallback={<h1>Loading...!!</h1>}>
@@ -92,7 +94,7 @@ const mapStateToProps = (state) => {
   return {
    username:state.username,
    password:state.password,
-   error:state.password,
+   error:state.error,
    isLoggedIn:state.isLoggedIn,
    jsonData:state.jsonData
   }

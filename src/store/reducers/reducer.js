@@ -7,7 +7,9 @@ const initialState = {
     password:'',
     error:'',
     isLoggedIn: false,
-    jsonData:loginData
+    jsonData:loginData,
+    errorFlagUsername:false,
+    errorFlagPassword:false
   };
 
 
@@ -32,7 +34,7 @@ const reducer = (state=initialState, action) => {
     }
 
     // if ( action.type === actionTypes.USERNAME_VALIDATION ) {
-    //     if ( state.username !== loginData.username ) {
+    //     if ( state.username !== state.jsonData.username ) {
     //         return {
     //             ...state,
     //             error: 'Invalid Credentials'
@@ -41,7 +43,7 @@ const reducer = (state=initialState, action) => {
     // }
 
     // if ( action.type === actionTypes.PASSWORD_VALIDATION ) {
-    //     if ( state.password !== loginData.password ) {
+    //     if ( state.password !== state.jsonData.password ) {
     //         return {
     //             ...state,
     //             error: 'Invalid Credentials'
@@ -57,7 +59,6 @@ const reducer = (state=initialState, action) => {
 
         if ( !state.username ) {
             
-
             return {
                 ...state,
                 error:'Username is required'
@@ -71,39 +72,50 @@ const reducer = (state=initialState, action) => {
                 error:'Password is required'
             };
         } 
+    }
+       
+    //     if ( action.evt.target.value !== state.jsonData.username ) {
+                    
+    //         return {
+    //             ...state,
+    //             error: 'Invalid Credentials'
+    //         };
+    // }
 
-        if ( action.type === actionTypes.USERNAME_VALIDATION ) {
-            if ( state.username !== loginData.username ) {
-            
 
+
+//     if ( action.evt.target.value !== state.jsonData.password ) {
+                    
+//         return {
+//             ...state,
+//             error: 'Invalid Credentials'
+//         };
+// }
+
+       
+
+    if ( action.type === actionTypes.PASSWORD_VALIDATION ) {
+
+        console.log("where am i?")
+        // if ( state.password !== state.jsonData.password ) {
+        if ( action.evt.target.value !== state.jsonData.password ) {
+                            
             return {
                 ...state,
                 error: 'Invalid Credentials'
-            }
+            };
         }
     }
-        if ( action.type === actionTypes.PASSWORD_VALIDATION ) {            
-            if ( state.password !== loginData.password ) {
-                
+
+            if ( action.type === actionTypes.USERNAME_VALIDATION ) {
+        
+                if ( action.evt.target.value !== state.jsonData.username ) {
+                    
                 return {
                     ...state,
                     error: 'Invalid Credentials'
-                }
-            }
+                };
         }
-        console.log("what is the state here?",state);
-        return {
-              ...state,
-              jsonData:dashboardData,
-              isLoggedIn:true
-            };
-    }
-
-    if ( action.type === actionTypes.DISMISS_ERROR ) {
-        return {
-            ...state,
-            error:''
-        };
     }
 
     return state;   

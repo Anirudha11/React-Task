@@ -14,16 +14,21 @@ class Login extends Component {
 
 
   render() {
-
+    console.log(this.props.error,"dimiss error")
+    const errorFlag = this.props.error?<h1>{this.props.error}</h1>: null;
       return (
         <form onSubmit={this.props.submit}>
-        {
+        {/* {
           this.props.error &&
-          <h1 onClick={()=>this.dismissError}>
-            <button onClick={()=>this.dismissError}>✖</button>
+          <h1 onClick={()=>this.props.dismissError}>
+            <button onClick={()=>this.props.dismissError}>✖</button>
             {this.props.error}
           </h1>
-        }
+        } */}
+        {errorFlag}
+        
+          
+        
         <label>Username</label>
         <Input type="text" value={this.props.username} changed={this.props.user} />
 
